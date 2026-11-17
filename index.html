@@ -27,6 +27,26 @@
 .half img{width:100%;height:100%;object-fit:cover;display:block}
 .job figcaption{font-weight:600}
 .tip-note{font-size:.92rem;font-style:italic;color:var(--muted)}
+.rev-avg{font-size:1.2rem;font-weight:600}
+.rev-avg .stars,.review .stars{color:#c98a0c;letter-spacing:.08em}
+.rev-layout{display:grid;grid-template-columns:minmax(0,1.3fr) minmax(0,1fr);gap:40px;align-items:start}
+.rev-layout>*{min-width:0}
+.rev-list{display:grid;gap:4px}
+.review{margin:0;padding-block:16px;border-bottom:1px solid var(--line);display:grid;gap:6px;overflow-wrap:anywhere}
+.review header{display:flex;justify-content:space-between;gap:12px;align-items:baseline;flex-wrap:wrap}
+.review p{margin:0}
+.rev-form{display:grid;gap:10px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.rev-form fieldset{border:0;padding:0;margin:0}
+.rev-form textarea,.rev-form input[type=text]{width:100%;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font:400 1rem var(--body)}
+.star-pick{display:inline-flex;flex-direction:row-reverse;gap:4px;margin-top:4px}
+.star-pick input{position:absolute;opacity:0;width:1px;height:1px}
+.star-pick label{font-size:2.2rem;line-height:1;color:var(--line);cursor:pointer;padding:2px}
+.star-pick label:hover,.star-pick label:hover~label,.star-pick input:checked~label{color:#e8a92f}
+.star-pick input:focus-visible+label{outline:3px solid var(--beam);outline-offset:2px;border-radius:3px}
+.hp{position:absolute;left:-9999px}
+.rev-msg{font-weight:600;color:var(--ok)}
+.rev-msg.bad{color:var(--bad)}
+@media (max-width:760px){.rev-layout{grid-template-columns:minmax(0,1fr)}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800;900&display=swap">
@@ -220,7 +240,34 @@ input[type=radio]{accent-color:var(--gold)}
 
 <section class="band" id="reviews"><div class="wrap">
   <h2>Reviews</h2>
-  <p>We're just getting started. Had your headlights done? We'd love to hear how it went. Text <a href="tel:+15633430380">563-343-0380</a> or email <a href="mailto:hamersheadlightrestoration@gmail.com" style="overflow-wrap:anywhere">hamersheadlightrestoration@gmail.com</a>.</p>
+  <p class="rev-avg" id="revAvg" hidden></p>
+  <div class="rev-layout">
+    <div class="rev-list" id="revList">
+      <p class="cap" id="revEmpty">No reviews yet. Had your headlights done? Be the first to leave one.</p>
+    </div>
+    <form class="rev-form" id="revForm" name="review" method="POST" data-netlify="true" netlify-honeypot="company">
+      <input type="hidden" name="form-name" value="review">
+      <p class="hp"><label>Leave this empty <input name="company" tabindex="-1" autocomplete="off"></label></p>
+      <h3 class="sub">Leave a review</h3>
+      <fieldset>
+        <legend>Your rating</legend>
+        <div class="star-pick">
+          <input type="radio" id="r5" name="rating" value="5" required><label for="r5" title="5 stars">&#9733;</label>
+          <input type="radio" id="r4" name="rating" value="4"><label for="r4" title="4 stars">&#9733;</label>
+          <input type="radio" id="r3" name="rating" value="3"><label for="r3" title="3 stars">&#9733;</label>
+          <input type="radio" id="r2" name="rating" value="2"><label for="r2" title="2 stars">&#9733;</label>
+          <input type="radio" id="r1" name="rating" value="1"><label for="r1" title="1 star">&#9733;</label>
+        </div>
+      </fieldset>
+      <label for="revName">First name</label>
+      <input type="text" id="revName" name="name" maxlength="40" required autocomplete="given-name">
+      <label for="revText">Your review</label>
+      <textarea id="revText" name="review" rows="5" maxlength="1000" required></textarea>
+      <button class="btn" type="submit" id="revBtn">Submit review</button>
+      <p class="cap">Reviews appear on the site after a quick check for spam.</p>
+      <p class="rev-msg" id="revMsg" role="status" hidden></p>
+    </form>
+  </div>
 </div></section>
 
 
@@ -267,6 +314,33 @@ const $=id=>document.getElementById(id);
     const [a,va]=keys[i],[b,vb]=keys[i+1],v=va+(vb-va)*ease(Math.min(1,(e-a)/(b-a)));s.value=v;set(v.toFixed(1));requestAnimationFrame(f)})(t0);
 })();
 
+
+/* Reviews: approved ones come from reviews.json; new ones go to Netlify Forms */
+(()=>{
+  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const stars=n=>"\u2605".repeat(n)+"\u2606".repeat(5-n);
+  fetch("reviews.json",{cache:"no-store"}).then(r=>r.ok?r.json():[]).then(list=>{
+    list=(Array.isArray(list)?list:[]).filter(r=>r&&r.name&&r.text&&r.rating>=1&&r.rating<=5);
+    if(!list.length)return;
+    list.sort((a,b)=>String(b.date||"").localeCompare(String(a.date||"")));
+    const avg=list.reduce((s,r)=>s+Number(r.rating),0)/list.length;
+    const a=$("revAvg");a.innerHTML=`<span class="stars" aria-hidden="true">${stars(Math.round(avg))}</span> ${avg.toFixed(1)} out of 5 from ${list.length} review${list.length>1?"s":""}`;a.hidden=false;
+    $("revList").innerHTML=list.map(r=>`<article class="review"><header><strong>${esc(r.name)}</strong><span class="stars" role="img" aria-label="${Number(r.rating)} out of 5 stars">${stars(Number(r.rating))}</span></header><p>${esc(r.text)}</p>${r.date?`<p class="cap">${esc(new Date(r.date+"T12:00").toLocaleDateString("en-US",{month:"long",year:"numeric"}))}</p>`:""}</article>`).join("");
+  }).catch(()=>{});
+  const f=$("revForm");
+  f.addEventListener("submit",async e=>{
+    e.preventDefault();
+    const m=$("revMsg"),b=$("revBtn");
+    if(!f.reportValidity())return;
+    b.disabled=true;b.textContent="Sending…";
+    try{
+      const r=await fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams(new FormData(f)).toString()});
+      if(!r.ok)throw 0;
+      f.reset();m.className="rev-msg";m.textContent="Thanks for your review! It will appear here once it's checked.";
+    }catch(_){m.className="rev-msg bad";m.textContent="Your review didn't send. Please try again, or text 563-343-0380.";}
+    m.hidden=false;b.disabled=false;b.textContent="Submit review";
+  });
+})();
 </script>
 
 </body>
