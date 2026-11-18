@@ -277,7 +277,7 @@ input[type=radio]{accent-color:var(--gold)}
     </div>
     <div class="panel">
       <h3 class="sub">Hours</h3>
-      <p>Monday to Saturday<br>Appointments start from 9:00 AM to 3:00 PM<br>Allow about 90 minutes<br>No deposit needed. Pay at your appointment.</p>
+      <p>Monday to Saturday<br>Appointments at 9:00 AM, 11:00 AM, 1:00 PM and 3:00 PM<br>Each job takes about 90 minutes<br>No deposit needed. Pay at your appointment.</p>
       <p class="tip-note">Tips are never expected, but always appreciated.</p>
     </div>
   </div>
@@ -388,7 +388,7 @@ input[type=radio]{accent-color:var(--gold)}
     <h3 class="sub">Block off time</h3>
     <form id="blockForm" class="block-form">
       <div><label for="blDate">Day</label><input type="date" id="blDate" required></div>
-      <div><label for="blTime">Time</label><select id="blTime"><option value="all">Whole day</option><option value="09:00">9:00 AM</option><option value="10:30">10:30 AM</option><option value="12:00">12:00 PM</option><option value="13:30">1:30 PM</option><option value="15:00">3:00 PM</option></select></div>
+      <div><label for="blTime">Time</label><select id="blTime"><option value="all">Whole day</option><option value="09:00">9:00 AM</option><option value="11:00">11:00 AM</option><option value="13:00">1:00 PM</option><option value="15:00">3:00 PM</option></select></div>
       <button class="btn" type="submit">Block</button>
     </form>
     <div id="owBlocked"></div>
@@ -446,7 +446,7 @@ const $=id=>document.getElementById(id);
 
 /* Booking calendar */
 (()=>{
-  const TIMES=["09:00","10:30","12:00","13:30","15:00"],AHEAD=60;
+  const TIMES=["09:00","11:00","13:00","15:00"],AHEAD=60;
   const SVC={one:["One headlight",35],both:["Both headlights",50],semi:["Semi or big truck headlights (set)",75]};
   const pad=n=>String(n).padStart(2,"0");
   const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;

@@ -1,6 +1,6 @@
 import { getStore } from "@netlify/blobs";
 
-export const TIMES = ["09:00", "10:30", "12:00", "13:30", "15:00"];
+export const TIMES = ["09:00", "11:00", "13:00", "15:00"];
 export const SERVICES = {
   one: { label: "One headlight", price: 35 },
   both: { label: "Both headlights", price: 50 },
