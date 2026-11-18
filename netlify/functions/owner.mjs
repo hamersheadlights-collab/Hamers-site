@@ -6,7 +6,7 @@ const sha = (s) => createHash("sha256").update(String(s)).digest();
 
 export default async (req, context) => {
   if (req.method !== "POST") return json({ error: "method" }, 405);
-  const PIN = process.env.OWNER_PIN || "";
+  const PIN = String(process.env.OWNER_PIN || process.env.owner_pin || "").trim();
   if (PIN.length < 6) return json({ error: "pin_not_set" }, 503);
 
   const s = store();
