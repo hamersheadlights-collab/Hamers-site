@@ -53,7 +53,7 @@ export default async (req, context) => {
   const { blobs } = await s.list({ prefix: "booking/" });
   const bookings = (await Promise.all(blobs.map((b) => s.get(b.key, { type: "json" }))))
     .filter((r) => r && r.date >= today)
-    .sort((a, b) => (a.date + a.time).localeCompare(b.date + b.time));
+    .sort((a, b) => (a.date === b.date ? a.time.localeCompare(b.time) : a.date.localeCompare(b.date)));
   const slots = await s.list({ prefix: "slot/" });
   const blocked = [];
   for (const b of slots.blobs) {

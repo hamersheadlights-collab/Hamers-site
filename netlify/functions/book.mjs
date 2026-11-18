@@ -1,4 +1,4 @@
-import { store, json, TIMES, SERVICES, isBookableDay, slotKey } from "../lib/shared.mjs";
+import { store, json, TIMES, SERVICES, isBookableDay, isPastCutoff, slotKey } from "../lib/shared.mjs";
 
 const clean = (v, max) => String(v ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, max);
 
@@ -20,6 +20,7 @@ export default async (req) => {
     notes: clean(body.notes, 500),
   };
   if (!isBookableDay(b.date) || !TIMES.includes(b.time)) return json({ error: "bad_time" }, 400);
+  if (!isPastCutoff(b.date, b.time)) return json({ error: "too_soon" }, 400);
   if (!SERVICES[b.service]) return json({ error: "bad_service" }, 400);
   if (!b.name || !b.address || !b.vehicle) return json({ error: "missing" }, 400);
   if (b.phone.replace(/\D/g, "").length < 10) return json({ error: "bad_phone" }, 400);

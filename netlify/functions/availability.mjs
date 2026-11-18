@@ -1,4 +1,4 @@
-import { store, json, todayCentral, addDays, DAYS_AHEAD } from "../lib/shared.mjs";
+import { store, json, todayCentral, cutoffCentral, addDays, DAYS_AHEAD } from "../lib/shared.mjs";
 
 // Returns which times are taken. No customer details are ever sent here.
 export default async () => {
@@ -10,7 +10,7 @@ export default async () => {
       const [, date, hhmm] = b.key.split("/");
       if (date > from && date <= to) taken.push(`${date}_${hhmm}`);
     }
-    return json({ today: from, taken });
+    return json({ today: from, cutoff: cutoffCentral(), taken });
   } catch (e) {
     return json({ error: "unavailable" }, 503);
   }

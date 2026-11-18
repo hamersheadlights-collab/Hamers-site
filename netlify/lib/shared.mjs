@@ -23,6 +23,18 @@ export function todayCentral() {
   }).format(new Date());
 }
 
+// The Quad Cities local date and time 24 hours from now, as "YYYY-MM-DD HH:MM".
+// No appointment can start before this.
+export function cutoffCentral(hours = 24) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat("en-CA", {
+    timeZone: "America/Chicago", year: "numeric", month: "2-digit", day: "2-digit",
+    hour: "2-digit", minute: "2-digit", hourCycle: "h23",
+  }).formatToParts(new Date(Date.now() + hours * 3600 * 1000)).map((p) => [p.type, p.value]));
+  return `${parts.year}-${parts.month}-${parts.day} ${parts.hour}:${parts.minute}`;
+}
+
+export const isPastCutoff = (date, time) => `${date} ${time}` >= cutoffCentral();
+
 export function addDays(ymd, n) {
   const [y, m, d] = ymd.split("-").map(Number);
   const t = new Date(Date.UTC(y, m - 1, d + n));
