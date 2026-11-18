@@ -2,7 +2,7 @@ import { getStore } from "@netlify/blobs";
 
 export const TIMES = ["09:00", "11:00", "13:00", "15:00"];
 export const SERVICES = {
-  one: { label: "One headlight", price: 35 },
+  one: { label: "Car headlight, one", price: 35 },
   both: { label: "Car headlights, both", price: 60 },
   semi: { label: "Truck headlights, both (pickups to semis)", price: 75 },
 };
