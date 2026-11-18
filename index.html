@@ -499,7 +499,7 @@ const $=id=>document.getElementById(id);
   $("next").onclick=()=>{S.view=new Date(S.view.getFullYear(),S.view.getMonth()+1,1);renderCal()};
   $("bkService").onchange=renderBtn;
   const err=m=>{const e=$("bkErr");e.textContent=m||"";e.hidden=!m};
-  const MSG={taken:"That time was just booked by someone else. Please choose another.",bad_phone:"Please enter a phone number with area code.",bad_email:"Please check your email address.",missing:"Please fill in your name, address and vehicle.",bad_time:"That time isn't available. Please choose another.",too_soon:"Appointments need to be booked at least 24 hours ahead. Please choose a later time."};
+  const MSG={taken:"That time was just booked by someone else. Please choose another.",bad_phone:"Please enter a phone number with area code.",bad_email:"Please check your email address.",missing:"Please fill in your name, address and vehicle.",bad_time:"That time isn't available. Please choose another.",too_soon:"Appointments need to be booked at least 24 hours ahead. Please choose a later time.",too_many:"You've booked several appointments today. To book more, please call or text 563-343-0380."};
   $("bkForm").addEventListener("submit",async e=>{
     e.preventDefault();err("");
     const f={company:$("bkCompany").value,date:S.day,time:S.time,service:$("bkService").value,name:$("bkName").value.trim(),phone:$("bkPhone").value.trim(),email:$("bkEmail").value.trim(),address:$("bkAddress").value.trim(),vehicle:$("bkVehicle").value.trim(),notes:$("bkNotes").value.trim()};

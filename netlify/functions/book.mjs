@@ -1,8 +1,12 @@
-import { store, json, TIMES, SERVICES, isBookableDay, isPastCutoff, slotKey } from "../lib/shared.mjs";
+import { store, json, TIMES, SERVICES, isBookableDay, isPastCutoff, slotKey, todayCentral } from "../lib/shared.mjs";
+import { createHash } from "node:crypto";
+
+// One device can book at most this many appointments a day, so a bot cannot fill the calendar.
+const MAX_PER_DAY = 3;
 
 const clean = (v, max) => String(v ?? "").replace(/[\u0000-\u001f\u007f]/g, " ").trim().slice(0, max);
 
-export default async (req) => {
+export default async (req, context) => {
   if (req.method !== "POST") return json({ error: "method" }, 405);
   let body;
   try { body = await req.json(); } catch { return json({ error: "bad_request" }, 400); }
@@ -27,6 +31,10 @@ export default async (req) => {
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(b.email)) return json({ error: "bad_email" }, 400);
 
   const s = store();
+  const ipHash = createHash("sha256").update(String(context?.ip || "unknown")).digest("hex").slice(0, 24);
+  const rateKey = `rate/${todayCentral()}/${ipHash}`;
+  const used = Number((await s.get(rateKey, { type: "json" }))?.count || 0);
+  if (used >= MAX_PER_DAY) return json({ error: "too_many" }, 429);
   const id = crypto.randomUUID();
   const claim = await s.setJSON(slotKey(b.date, b.time), { status: "booked", id }, { onlyIfNew: true });
   if (!claim.modified) return json({ error: "taken" }, 409);
@@ -38,6 +46,7 @@ export default async (req) => {
     await s.delete(slotKey(b.date, b.time)).catch(() => {});
     return json({ error: "save_failed" }, 500);
   }
+  await s.setJSON(rateKey, { count: used + 1 }).catch(() => {});
   return json({ ok: true, id });
 };
 
