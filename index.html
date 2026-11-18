@@ -47,6 +47,46 @@
 .rev-msg{font-weight:600;color:var(--ok)}
 .rev-msg.bad{color:var(--bad)}
 @media (max-width:760px){.rev-layout{grid-template-columns:minmax(0,1fr)}}
+.booker{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:36px;align-items:start;margin-top:12px;padding:24px;background:var(--surface);border:1px solid var(--line);border-radius:6px}
+.booker>*{min-width:0}
+.cal-head{display:flex;justify-content:space-between;align-items:center;gap:8px;margin-bottom:12px}
+.cal-head h3{margin:0;font-size:1.6rem;font-weight:800}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px}
+.dow{font-size:.75rem;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);padding:4px}
+.day{min-height:62px;background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:6px;text-align:left;color:var(--ink);font:500 1rem var(--body);display:flex;flex-direction:column;justify-content:space-between;cursor:pointer;font-variant-numeric:tabular-nums;min-width:0}
+.day small{font-size:.72rem;color:var(--ok);line-height:1.1}
+.day.full{background:var(--haze-bg)}.day.full small{color:var(--haze)}
+.day[disabled]{background:transparent;border-color:transparent;color:var(--muted);cursor:default}
+.day.sel{border-color:var(--gold);box-shadow:inset 0 0 0 2px var(--gold)}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:.85rem;color:var(--muted);margin-top:10px}
+.legend i{display:inline-block;width:12px;height:12px;border-radius:2px;margin-right:6px;vertical-align:-1px;border:1px solid var(--line)}
+.lg-open{background:var(--bg)}.lg-full{background:var(--haze-bg)}
+.note{margin-top:10px;font-size:.92rem;color:var(--muted)}
+.bk-side{display:grid;gap:14px}
+.times{display:grid;grid-template-columns:repeat(auto-fill,minmax(104px,1fr));gap:6px}
+.time{background:var(--bg);border:1px solid var(--line);border-radius:4px;padding:10px 6px;color:var(--ink);font:500 .98rem var(--body);cursor:pointer;font-variant-numeric:tabular-nums}
+.time.sel{background:var(--gold);border-color:var(--gold);color:var(--on-gold)}
+.time[disabled]{background:var(--haze-bg);color:var(--haze);cursor:not-allowed;text-decoration:line-through}
+#bkForm,.pin-form,.block-form{display:grid;gap:8px}
+#bkForm label,.pin-form label,.block-form label{font-weight:500;font-size:.95rem}
+#bkForm input,#bkForm select,#bkForm textarea,.pin-form input,.block-form input,.block-form select{width:100%;padding:10px;border:1px solid var(--line);border-radius:4px;background:var(--bg);color:var(--ink);font:400 1rem var(--body)}
+.two{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}
+.err{color:var(--bad);font-weight:500}
+.done{display:grid;gap:10px;padding:18px;border:2px solid var(--ok);border-radius:6px}
+.done h3{margin:0;font-size:1.6rem}
+.owner-link{color:inherit;opacity:.7;font-size:.85rem}
+.pin-form{max-width:420px}
+.pin-row{display:flex;gap:8px;flex-wrap:wrap}.pin-row input{flex:1 1 160px;width:auto}
+.ow-tools{display:flex;gap:8px;flex-wrap:wrap}
+.appt{display:grid;gap:4px;padding:14px 0;border-bottom:1px solid var(--line);overflow-wrap:anywhere}
+.appt-head{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:baseline}
+.appt-head strong{font-size:1.1rem}
+.appt-actions{display:flex;gap:8px;flex-wrap:wrap;margin-top:6px}
+.block-form{grid-template-columns:repeat(auto-fit,minmax(160px,1fr));align-items:end;max-width:640px}
+.blocked-row{display:flex;justify-content:space-between;gap:12px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);flex-wrap:wrap}
+section.band>.wrap>*{min-width:0}
+@media (max-width:860px){.booker{grid-template-columns:minmax(0,1fr);padding:16px}}
+@media (max-width:480px){.day{min-height:50px;padding:4px}.day small{font-size:.62rem}.two{grid-template-columns:minmax(0,1fr)}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Big+Shoulders+Display:wght@700;800;900&display=swap">
@@ -170,7 +210,7 @@ input[type=radio]{accent-color:var(--gold)}
 <section class="hero"><div class="wrap">
   <div class="hero-top">
     <h1><span>Yellow</span> lens in.<br><em>Clear</em> lens out.</h1>
-    <div class="price"><b>$50 for both headlights</b><small>$35 for one headlight · $75 for a semi or big truck set</small><a class="btn" href="https://app.squareup.com/appointments/book/nwzortfq7otg31/L5YFV6GG5AQ5Y/start" target="_blank" rel="noopener">Book your restoration</a></div>
+    <div class="price"><b>$50 for both headlights</b><small>$35 for one headlight · $75 for a semi or big truck set</small><a class="btn" href="#book">Book your restoration</a></div>
   </div>
   <div class="showcase">
     <div class="shot">
@@ -192,7 +232,7 @@ input[type=radio]{accent-color:var(--gold)}
         <li><b>Your car looks newer.</b> Cloudy headlights make any car look older than it is.</li>
         <li><b>We come to you.</b> Anywhere in the Quad Cities and surrounding areas. Most jobs take about 90 minutes.</li>
       </ul>
-      <div class="why-cta"><a class="btn" href="https://app.squareup.com/appointments/book/nwzortfq7otg31/L5YFV6GG5AQ5Y/start" target="_blank" rel="noopener">Book your restoration</a><a class="why-phone" href="tel:+15633430380">or call 563-343-0380</a></div>
+      <div class="why-cta"><a class="btn" href="#book">Book your restoration</a><a class="why-phone" href="tel:+15633430380">or call 563-343-0380</a></div>
     </aside>
   </div>
 </div></section>
@@ -239,10 +279,43 @@ input[type=radio]{accent-color:var(--gold)}
       <h3 class="sub">Hours</h3>
       <p>Monday to Saturday<br>Appointments start from 9:00 AM to 3:00 PM<br>Allow about 90 minutes<br>No deposit needed. Pay at your appointment.</p>
       <p class="tip-note">Tips are never expected, but always appreciated.</p>
-      <a class="btn" href="https://app.squareup.com/appointments/book/nwzortfq7otg31/L5YFV6GG5AQ5Y/start" target="_blank" rel="noopener">See open times and book</a>
-      <p class="cap">Booking opens on Square, where you can see every open time and get a confirmation.</p>
     </div>
   </div>
+
+  <div class="booker" id="booker">
+    <div class="bk-cal">
+      <div class="cal-head"><button class="btn quiet" id="prev" type="button" aria-label="Previous month">&#8249; Prev</button><h3 id="month"></h3><button class="btn quiet" id="next" type="button" aria-label="Next month">Next &#8250;</button></div>
+      <div class="grid" id="cal" aria-label="Choose a day"></div>
+      <div class="legend"><span><i class="lg-open"></i>Openings</span><span><i class="lg-full"></i>Fully booked</span><span>Closed Sundays</span></div>
+      <p class="note" id="bkNote">Loading open times&#8230;</p>
+    </div>
+    <div class="bk-side">
+      <h3 class="sub" id="dayTitle">Choose a day</h3>
+      <div class="times" id="times"></div>
+      <form id="bkForm" novalidate>
+        <p class="hp"><label>Leave this empty <input name="company" id="bkCompany" tabindex="-1" autocomplete="off"></label></p>
+        <label for="bkService">Service</label>
+        <select id="bkService" name="service" required>
+          <option value="both">Both headlights, $50</option>
+          <option value="one">One headlight, $35</option>
+          <option value="semi">Semi or big truck headlights (set), $75</option>
+        </select>
+        <div class="two"><div><label for="bkName">Name</label><input type="text" id="bkName" name="name" autocomplete="name" required maxlength="80"></div>
+        <div><label for="bkPhone">Phone</label><input type="tel" id="bkPhone" name="phone" autocomplete="tel" required maxlength="30"></div></div>
+        <label for="bkEmail">Email</label><input type="email" id="bkEmail" name="email" autocomplete="email" required maxlength="120">
+        <label for="bkAddress">Address where the vehicle will be</label><input type="text" id="bkAddress" name="address" autocomplete="street-address" required maxlength="200">
+        <label for="bkVehicle">Vehicle year, make and model</label><input type="text" id="bkVehicle" name="vehicle" required maxlength="100" placeholder="e.g. 2010 Nissan Altima">
+        <label for="bkNotes">Anything else? <span class="cap">(optional)</span></label><textarea id="bkNotes" name="notes" rows="3" maxlength="500" placeholder="More than one vehicle, gate code, where it's parked&#8230;"></textarea>
+        <button class="btn" type="submit" id="bkSubmit" disabled>Choose a time</button>
+        <p class="err" id="bkErr" role="alert" hidden></p>
+      </form>
+      <div class="done" id="bkDone" hidden></div>
+    </div>
+  </div>
+
+  <form name="booking" data-netlify="true" netlify-honeypot="company" hidden>
+    <input name="company"><input name="when"><input name="service"><input name="name"><input name="phone"><input name="email"><input name="address"><input name="vehicle"><textarea name="notes"></textarea>
+  </form>
 </div></section>
 
 <section class="band" id="reviews"><div class="wrap">
@@ -293,12 +366,36 @@ input[type=radio]{accent-color:var(--gold)}
       <h3 class="sub">Cancellations</h3>
       <p>Need to cancel or reschedule? Please call or text at least 24 hours before your appointment.</p>
       <h3 class="sub">Privacy</h3>
-      <p>We use your name, phone number, address and vehicle details only to schedule and complete your service. We don't sell your information. Online bookings are handled by Square.</p>
+      <p>We use your name, phone number, address and vehicle details only to schedule and complete your service. We don't sell your information. Your booking details are only visible to Hamer's, behind a private PIN.</p>
     </div>
   </div>
 </div></section>
 
-<footer><div class="wrap">Hamer's Headlight Restoration · 563-343-0380 · Based in the Quad Cities</div></footer>
+<section class="band" id="owner" hidden><div class="wrap">
+  <h2>Schedule</h2>
+  <form id="pinForm" class="pin-form">
+    <label for="pin">Owner PIN</label>
+    <div class="pin-row"><input type="password" id="pin" inputmode="numeric" autocomplete="current-password" maxlength="20" required><button class="btn" type="submit">View schedule</button></div>
+    <p class="err" id="pinErr" role="alert" hidden></p>
+  </form>
+  <div id="ownerView" hidden>
+    <div class="ow-tools">
+      <button class="btn quiet" type="button" id="owRefresh">Refresh</button>
+      <button class="btn quiet" type="button" id="owLock">Lock</button>
+    </div>
+    <h3 class="sub">Upcoming appointments</h3>
+    <div id="owList"></div>
+    <h3 class="sub">Block off time</h3>
+    <form id="blockForm" class="block-form">
+      <div><label for="blDate">Day</label><input type="date" id="blDate" required></div>
+      <div><label for="blTime">Time</label><select id="blTime"><option value="all">Whole day</option><option value="09:00">9:00 AM</option><option value="10:30">10:30 AM</option><option value="12:00">12:00 PM</option><option value="13:30">1:30 PM</option><option value="15:00">3:00 PM</option></select></div>
+      <button class="btn" type="submit">Block</button>
+    </form>
+    <div id="owBlocked"></div>
+  </div>
+</div></section>
+
+<footer><div class="wrap">Hamer's Headlight Restoration · 563-343-0380 · Based in the Quad Cities · <a class="owner-link" href="#owner" id="ownerLink">Owner</a></div></footer>
 
 <script>
 const $=id=>document.getElementById(id);
@@ -345,6 +442,118 @@ const $=id=>document.getElementById(id);
     }catch(_){m.className="rev-msg bad";m.textContent="Your review didn't send. Please try again, or text 563-343-0380.";}
     m.hidden=false;b.disabled=false;b.textContent="Submit review";
   });
+})();
+
+/* Booking calendar */
+(()=>{
+  const TIMES=["09:00","10:30","12:00","13:30","15:00"],AHEAD=60;
+  const SVC={one:["One headlight",35],both:["Both headlights",50],semi:["Semi or big truck headlights (set)",75]};
+  const pad=n=>String(n).padStart(2,"0");
+  const ymd=d=>`${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  const fromYmd=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d)};
+  const t12=t=>{let[h,m]=t.split(":").map(Number);const a=h>=12?"PM":"AM";h=h%12||12;return `${h}:${pad(m)} ${a}`};
+  const longDay=s=>fromYmd(s).toLocaleDateString("en-US",{weekday:"long",month:"long",day:"numeric"});
+  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const S={today:ymd(new Date()),taken:new Set(),day:null,time:null,view:null,loaded:false};
+  const first=()=>{const d=fromYmd(S.today);d.setDate(d.getDate()+1);return d};
+  const last=()=>{const d=fromYmd(S.today);d.setDate(d.getDate()+AHEAD);return d};
+  const openDay=d=>d>=first()&&d<=last()&&d.getDay()!==0;
+  const key=(d,t)=>`${d}_${t.replace(":","")}`;
+  const openCount=s=>TIMES.filter(t=>!S.taken.has(key(s,t))).length;
+  function renderCal(){
+    if(!S.view){const f=first();S.view=new Date(f.getFullYear(),f.getMonth(),1)}
+    $("month").textContent=S.view.toLocaleDateString("en-US",{month:"long",year:"numeric"});
+    const y=S.view.getFullYear(),m=S.view.getMonth();
+    let h=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"].map(d=>`<div class="dow">${d}</div>`).join("");
+    for(let i=0;i<new Date(y,m,1).getDay();i++)h+="<div></div>";
+    for(let n=1,c=new Date(y,m+1,0).getDate();n<=c;n++){
+      const d=new Date(y,m,n),s=ymd(d),open=openDay(d)&&S.loaded,cnt=open?openCount(s):0,lab=!open?"":cnt?`${cnt} open`:"Full";
+      h+=`<button type="button" class="day${open&&!cnt?" full":""}${s===S.day?" sel":""}" data-d="${s}" ${open&&cnt?"":"disabled"} aria-label="${longDay(s)}${lab?", "+lab:""}"><span>${n}</span><small>${lab}</small></button>`;
+    }
+    $("cal").innerHTML=h;
+    const f=first(),l=last();
+    $("prev").disabled=S.view<=new Date(f.getFullYear(),f.getMonth(),1);
+    $("next").disabled=new Date(y,m+1,1)>l;
+  }
+  function renderTimes(){
+    if(!S.day){$("dayTitle").textContent="Choose a day";$("times").innerHTML="";renderBtn();return}
+    $("dayTitle").textContent=longDay(S.day);
+    $("times").innerHTML=TIMES.map(t=>{const x=S.taken.has(key(S.day,t));return `<button type="button" class="time${S.time===t?" sel":""}" data-t="${t}" ${x?"disabled":""}>${t12(t)}</button>`}).join("");
+    renderBtn();
+  }
+  function renderBtn(){const b=$("bkSubmit"),s=SVC[$("bkService").value];b.disabled=!S.time;b.textContent=S.time?`Book ${t12(S.time)} · $${s[1]}`:"Choose a day and time"}
+  function render(){renderCal();renderTimes()}
+  async function load(){
+    try{
+      const r=await fetch("/api/availability",{cache:"no-store"});if(!r.ok)throw 0;
+      const j=await r.json();S.today=j.today||S.today;S.taken=new Set(j.taken||[]);S.loaded=true;$("bkNote").hidden=true;
+      if(S.day&&S.time&&S.taken.has(key(S.day,S.time)))S.time=null;
+      if(!S.day){const d=first();while(d<=last()){if(openDay(d)&&openCount(ymd(d))){S.day=ymd(d);S.view=new Date(d.getFullYear(),d.getMonth(),1);break}d.setDate(d.getDate()+1)}}
+    }catch(_){S.loaded=false;$("bkNote").hidden=false;$("bkNote").textContent="Open times can't be loaded right now. Please call or text 563-343-0380 to book."}
+    render();
+  }
+  $("cal").addEventListener("click",e=>{const b=e.target.closest("[data-d]");if(!b||b.disabled)return;S.day=b.dataset.d;S.time=null;render()});
+  $("times").addEventListener("click",e=>{const b=e.target.closest("[data-t]");if(!b||b.disabled)return;S.time=b.dataset.t;renderTimes()});
+  $("prev").onclick=()=>{S.view=new Date(S.view.getFullYear(),S.view.getMonth()-1,1);renderCal()};
+  $("next").onclick=()=>{S.view=new Date(S.view.getFullYear(),S.view.getMonth()+1,1);renderCal()};
+  $("bkService").onchange=renderBtn;
+  const err=m=>{const e=$("bkErr");e.textContent=m||"";e.hidden=!m};
+  const MSG={taken:"That time was just booked by someone else. Please choose another.",bad_phone:"Please enter a phone number with area code.",bad_email:"Please check your email address.",missing:"Please fill in your name, address and vehicle.",bad_time:"That time isn't available. Please choose another."};
+  $("bkForm").addEventListener("submit",async e=>{
+    e.preventDefault();err("");
+    const f={company:$("bkCompany").value,date:S.day,time:S.time,service:$("bkService").value,name:$("bkName").value.trim(),phone:$("bkPhone").value.trim(),email:$("bkEmail").value.trim(),address:$("bkAddress").value.trim(),vehicle:$("bkVehicle").value.trim(),notes:$("bkNotes").value.trim()};
+    if(!f.time){err("Choose a day and time first.");return}
+    if(!f.name||!f.phone||!f.email||!f.address||!f.vehicle){err("Please fill in your name, phone, email, address and vehicle.");return}
+    const b=$("bkSubmit");b.disabled=true;b.textContent="Booking…";
+    try{
+      const r=await fetch("/api/book",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify(f)});
+      const j=await r.json().catch(()=>({}));
+      if(!r.ok){err(MSG[j.error]||"Your booking didn't go through. Please try again, or call or text 563-343-0380.");if(j.error==="taken"){await load()}else renderBtn();return}
+      const s=SVC[f.service];
+      fetch("/",{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({"form-name":"booking",company:"",when:`${longDay(f.date)} at ${t12(f.time)}`,service:`${s[0]} ($${s[1]})`,name:f.name,phone:f.phone,email:f.email,address:f.address,vehicle:f.vehicle,notes:f.notes}).toString()}).catch(()=>{});
+      $("bkForm").hidden=true;$("times").hidden=true;
+      const d=$("bkDone");d.hidden=false;
+      d.innerHTML=`<h3>You're booked!</h3><p><strong>${esc(longDay(f.date))} at ${t12(f.time)}</strong><br>${esc(s[0])}, $${s[1]}, paid at your appointment<br>${esc(f.vehicle)}<br>${esc(f.address)}</p><p>Bennett will text you at ${esc(f.phone)} to confirm. Need to change it? Call or text 563-343-0380.</p><button class="btn quiet" type="button" id="bkAgain">Book another vehicle</button>`;
+      $("bkAgain").onclick=()=>{d.hidden=true;$("bkForm").hidden=false;$("times").hidden=false;S.time=null;load()};
+      S.taken.add(key(f.date,f.time));S.time=null;renderCal();
+    }catch(_){err("Your booking didn't go through. Please check your connection, or call or text 563-343-0380.");renderBtn()}
+  });
+  render();load();
+})();
+
+/* Owner schedule (PIN checked on the server) */
+(()=>{
+  let pin="";
+  const t12=t=>{let[h,m]=t.split(":").map(Number);const a=h>=12?"PM":"AM";h=h%12||12;return `${h}:${String(m).padStart(2,"0")} ${a}`};
+  const day=s=>{const[y,m,d]=s.split("-").map(Number);return new Date(y,m-1,d).toLocaleDateString("en-US",{weekday:"short",month:"short",day:"numeric"})};
+  const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+  const show=()=>{$("owner").hidden=false;$("owner").scrollIntoView();$("pin").focus()};
+  $("ownerLink").addEventListener("click",e=>{e.preventDefault();show()});
+  if(location.hash==="#owner")show();
+  const call=async body=>{const r=await fetch("/api/owner",{method:"POST",headers:{"content-type":"application/json"},body:JSON.stringify({pin,...body})});const j=await r.json().catch(()=>({}));return [r.status,j]};
+  const PINMSG={wrong_pin:"That PIN isn't right.",locked:"Too many wrong tries. Wait 15 minutes and try again.",pin_not_set:"The owner PIN hasn't been set up in Netlify yet."};
+  async function refresh(){
+    const [st,j]=await call({action:"list"});
+    if(st!==200){pin="";$("ownerView").hidden=true;$("pinForm").hidden=false;const e=$("pinErr");e.textContent=PINMSG[j.error]||"Couldn't load the schedule. Try again.";e.hidden=false;return false}
+    $("owList").innerHTML=j.bookings.length?j.bookings.map(b=>`<div class="appt"><div class="appt-head"><strong>${esc(day(b.date))}, ${t12(b.time)}</strong><span>${esc(b.serviceLabel)} · $${b.price}</span></div>
+      <div>${esc(b.name)} · <a href="tel:${esc(b.phone.replace(/[^\d+]/g,""))}">${esc(b.phone)}</a> · ${esc(b.email)}</div>
+      <div><a href="https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(b.address)}" target="_blank" rel="noopener">${esc(b.address)}</a></div>
+      <div>${esc(b.vehicle)}</div>${b.notes?`<div class="cap">${esc(b.notes)}</div>`:""}
+      <div class="appt-actions"><button class="btn quiet" type="button" data-cancel="${esc(b.id)}">Cancel appointment</button></div></div>`).join(""):`<p class="cap">No upcoming appointments.</p>`;
+    $("owBlocked").innerHTML=j.blocked.length?`<p class="cap">Blocked times</p>`+j.blocked.map(x=>`<div class="blocked-row"><span>${esc(day(x.date))}, ${t12(x.time)}</span><button class="btn quiet" type="button" data-unblock="${x.date}|${x.time}">Unblock</button></div>`).join(""):"";
+    return true;
+  }
+  $("pinForm").addEventListener("submit",async e=>{e.preventDefault();$("pinErr").hidden=true;pin=$("pin").value.trim();if(await refresh()){$("pinForm").hidden=true;$("ownerView").hidden=false;$("pin").value=""}});
+  $("owRefresh").onclick=refresh;
+  $("owLock").onclick=()=>{pin="";$("ownerView").hidden=true;$("pinForm").hidden=false;$("owList").innerHTML="";$("owBlocked").innerHTML=""};
+  $("owList").addEventListener("click",async e=>{
+    const b=e.target.closest("[data-cancel]");if(!b)return;
+    if(b.dataset.confirm!=="1"){b.dataset.confirm="1";b.textContent="Tap again to cancel";setTimeout(()=>{if(b.isConnected){b.dataset.confirm="";b.textContent="Cancel appointment"}},4000);return}
+    b.disabled=true;await call({action:"cancel",id:b.dataset.cancel});refresh();
+  });
+  $("owBlocked").addEventListener("click",async e=>{const b=e.target.closest("[data-unblock]");if(!b)return;const[date,time]=b.dataset.unblock.split("|");b.disabled=true;await call({action:"unblock",date,time});refresh()});
+  $("blockForm").addEventListener("submit",async e=>{e.preventDefault();const[st]=await call({action:"block",date:$("blDate").value,time:$("blTime").value});if(st!==200){alertless("That day can't be blocked. Pick a future day other than Sunday.")}refresh()});
+  function alertless(m){const p=document.createElement("p");p.className="err";p.textContent=m;$("blockForm").after(p);setTimeout(()=>p.remove(),5000)}
 })();
 </script>
 
