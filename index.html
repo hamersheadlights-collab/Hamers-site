@@ -90,9 +90,11 @@ section.band>.wrap>*{min-width:0}
 .head-right{display:flex;flex-direction:column;align-items:flex-end;gap:14px}
 .quick{display:flex;align-items:center;gap:10px;flex-wrap:wrap;justify-content:flex-end}
 .quick-label{font-weight:600;color:var(--on-navy);margin-right:4px}
-.qbtn{display:inline-grid;place-items:center;width:46px;height:46px;border:1.5px solid var(--gold);border-radius:50%;color:var(--on-navy);text-decoration:none}
-.qbtn:hover{background:var(--gold);color:var(--on-gold)}
-.qbtn svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.qbtn{display:inline-grid;place-items:center;width:44px;height:44px;border-radius:50%;background:var(--gold);color:var(--navy);text-decoration:none;transition:transform .15s,background .15s}
+.qbtn:hover{background:#f3c25a;transform:translateY(-1px)}
+.qbtn:focus-visible{outline:3px solid #fff;outline-offset:2px}
+.qbtn svg{width:21px;height:21px;fill:none;stroke:currentColor;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.brand-ico{width:20px;height:20px;background:currentColor;-webkit-mask:var(--ico) center/contain no-repeat;mask:var(--ico) center/contain no-repeat}
 @media (max-width:760px){.head-right{align-items:flex-start;width:100%}.quick{justify-content:flex-start}}
 </style>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -217,8 +219,8 @@ input[type=radio]{accent-color:var(--gold)}
     <span class="quick-label">Contact us</span>
     <a class="qbtn" href="mailto:hamersheadlightrestoration@gmail.com" aria-label="Email us" title="Email"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M3 6h18v12H3z M3 7l9 6 9-6"/></svg></a>
     <a class="qbtn" href="tel:+15633430380" aria-label="Call 563-343-0380" title="Call"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M6.6 3.5l3 3.1-1.8 2.3a12 12 0 0 0 7.3 7.3l2.3-1.8 3.1 3-1.9 2.6C11 19.5 4.5 13 3.9 5.4z"/></svg></a>
-    <a class="qbtn" href="https://www.facebook.com/share/1A1ZuBs12N/" target="_blank" rel="noopener" aria-label="Facebook page" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M9 11a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z M2.5 20c.6-3.6 3.3-5.5 6.5-5.5s5.9 1.9 6.5 5.5 M16 4.3a3.5 3.5 0 0 1 0 6.4 M18 14.8c2 .6 3.2 2.4 3.5 5.2"/></svg></a>
-    <a class="qbtn" href="https://www.instagram.com/hamers_headlight_restoration/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path d="M4 7h3.5L9 5h6l1.5 2H20v12H4z M12 16.5a3.5 3.5 0 1 0 0-7 3.5 3.5 0 0 0 0 7z"/></svg></a>
+    <a class="qbtn" href="https://www.facebook.com/share/1A1ZuBs12N/" target="_blank" rel="noopener" aria-label="Facebook page" title="Facebook"><span class="brand-ico" style="--ico:url(https://cdn.jsdelivr.net/npm/simple-icons@11.0.0/icons/facebook.svg)"></span></a>
+    <a class="qbtn" href="https://www.instagram.com/hamers_headlight_restoration/" target="_blank" rel="noopener" aria-label="Instagram" title="Instagram"><span class="brand-ico" style="--ico:url(https://cdn.jsdelivr.net/npm/simple-icons@11.0.0/icons/instagram.svg)"></span></a>
   </div>
   <nav><a href="#results">Results</a><a href="#book">Book</a><a href="#reviews">Reviews</a><a href="#contact">Contact</a></nav>
 </div></div></header>
